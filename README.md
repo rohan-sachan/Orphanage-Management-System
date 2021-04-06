@@ -8,3 +8,9 @@
 ## Referenece Links ##
 - [Setting up MySQL and MySQL Workbench in Ubuntu](https://www.youtube.com/watch?v=IWXQeXHDerg)
 - [Dumping and reloading MySQL database](https://www.youtube.com/watch?v=BsKXzm6qbcM)
+
+## Important Notes ##
+1. Update requirements file before pushing to remote
+2. Dump mysql database before pushing to remote
+3. After pulling from remote if there are changes to database, then delete the previous local database and recreate it from dump.
+4. Create user in mysql with name: dbms, password: password
