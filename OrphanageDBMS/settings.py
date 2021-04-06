@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'child_app'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +77,14 @@ WSGI_APPLICATION = 'OrphanageDBMS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'orphanage_management_system',
+        'USER':'dbms',
+        'PASSWORD':'password',
+        'HOST':'localhost',
+        'PORT':'3306'
     }
 }
 
