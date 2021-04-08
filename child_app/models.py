@@ -6,7 +6,12 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
+# Create your models here.
+class CustomUser(AbstractUser):
+    user_type_data=((1,"OB"),(2,"Emp"))
+    user_type=models.CharField(default=1,choices=user_type_data,max_length=10)
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -50,7 +55,7 @@ class AuthUser(models.Model):
     date_joined = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'auth_user'
 
 
@@ -59,7 +64,7 @@ class AuthUserGroups(models.Model):
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'auth_user_groups'
         unique_together = (('user', 'group'),)
 
@@ -69,7 +74,7 @@ class AuthUserUserPermissions(models.Model):
     permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'auth_user_user_permissions'
         unique_together = (('user', 'permission'),)
 
@@ -89,7 +94,7 @@ class Child(models.Model):
     rid = models.ForeignKey('Room', models.DO_NOTHING, db_column='RID', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'child'
 
 
@@ -136,6 +141,29 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
+class OfficeBearers(models.Model):
+    chairno = models.CharField(db_column='ChairNo', primary_key=True, max_length=5)  # Field name made lowercase.
+    admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    position = models.CharField(db_column='POSITION', max_length=20, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'office_bearers'
+
+class Employees(models.Model):
+    empid = models.CharField(db_column='EMPID', primary_key=True, max_length=5)  # Field name made lowercase.
+    admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    first_name = models.CharField(db_column='First_Name', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    second_name = models.CharField(db_column='Second_Name', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    phnum = models.IntegerField(db_column='PhNum', blank=True, null=True)  # Field name made lowercase.
+    dsc = models.CharField(db_column='Dsc', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    eano = models.CharField(db_column='EAno', max_length=12, blank=True, null=True)  # Field name made lowercase.
+    doj = models.DateField(db_column='DOJ', blank=True, null=True)  # Field name made lowercase.
+    rtype = models.CharField(db_column='Rtype', max_length=50, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'employees'
 
 class Room(models.Model):
     roomid = models.CharField(db_column='RoomID', primary_key=True, max_length=5)  # Field name made lowercase.
@@ -143,5 +171,5 @@ class Room(models.Model):
     max_occupancy = models.IntegerField(db_column='Max_Occupancy')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'room'
