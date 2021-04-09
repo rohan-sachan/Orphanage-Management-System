@@ -1,18 +1,46 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
+# Create your models here.
+class CustomUser(AbstractUser):
+    user_type_data=((1,"DBManager"), (2, "Employee"))
+    user_type=models.CharField(default=1,choices=user_type_data,max_length=10)
+
+class AdminDB(models.Model):
+    id=models.AutoField(primary_key=True)
+    admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now_add=True)
+    objects=models.Manager()
 
 class Room(models.Model):
-    roomid = models.CharField(db_column='RoomID', primary_key=True, max_length=5)  # Field name made lowercase.
-    floor = models.IntegerField(db_column='Floor')  # Field name made lowercase.
-    max_occupancy = models.IntegerField(db_column='Max_Occupancy')  # Field name made lowercase.
+    room_id = models.CharField(max_length = 5, primary_key=True)
+    floor = models.IntegerField()
+    max_occupancy = models.IntegerField()
+    objects = models.Manager()
 
-    class Meta:
-        managed = False
-        db_table = 'Room'
+# class Employees(models.Model):
+#     id=models.AutoField(primary_key=True)
+#     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+#     address=models.TextField()
+#     created_at=models.DateTimeField(auto_now_add=True)
+#     updated_at=models.DateTimeField(auto_now_add=True)
+#     objects=models.Manager()
+
+
+@receiver(post_save,sender=CustomUser)
+def create_user_profile(sender,instance,created,**kwargs):
+    if created:
+        if instance.user_type==1:
+            AdminDB.objects.create(admin=instance)
+        # if instance.user_type==2:
+        #     Staffs.objects.create(admin=instance,address="")
+
+@receiver(post_save,sender=CustomUser)
+def save_user_profile(sender,instance,**kwargs):
+    if instance.user_type==1:
+        instance.admindb.save()
+    # if instance.user_type==2:
+    #     instance.staffs.save()

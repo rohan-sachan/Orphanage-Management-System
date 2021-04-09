@@ -1,0 +1,59 @@
+{% load static %}
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="{% static "dist/img/AdminLTELogo.png" %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{ user.username }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            {% url 'add_child' as add_child %}
+            <a href="{{ add_child }}" class="nav-link {% if request.path == add_child %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Child
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            {% url 'add_room' as add_room %}
+            <a href="{{ add_room }}" class="nav-link {% if request.path == add_child %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Room
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            {% url 'manage_room' as manage_room %}
+            <a href="{{ manage_room }}" class="nav-link {% if request.path == manage_room %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Rooms
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
