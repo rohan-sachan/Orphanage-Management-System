@@ -15,6 +15,14 @@ class AdminDB(models.Model):
     updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
 
+class Donation_History(models.Model):
+    Don_id = models.CharField(max_length = 5, primary_key=True)
+    DName = models.CharField(max_length = 20)
+    DPanno = models.CharField(max_length = 10)
+    Ddate = models.DateField()
+    Amt = models.IntegerField()
+    objects = models.Manager()
+
 class Room(models.Model):
     room_id = models.CharField(max_length = 5, primary_key=True)
     floor = models.IntegerField()

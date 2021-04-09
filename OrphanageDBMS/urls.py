@@ -32,8 +32,13 @@ urlpatterns = [
     # path('add_child_save',AdminDBvIews.add_child_save,name="add_child_save"),
     path('add_room',AdminDBvIews.add_room,name="add_room"),
     path('add_room_save',AdminDBvIews.add_room_save,name="add_room_save"),
+    path('add_donation_history',AdminDBvIews.add_donation_history,name="add_donation_history"),
+    path('add_donation_history_save',AdminDBvIews.add_donation_history_save,name="add_donation_history_save"),
     path('manage_room',AdminDBvIews.manage_room,name="manage_room"),
+    path('manage_donation_history',AdminDBvIews.manage_donation_history,name="manage_donation_history"),
     path('edit_room/<str:room_id>', AdminDBvIews.edit_room,name="edit_room"),
     path('edit_room_save', AdminDBvIews.edit_room_save,name="edit_room_save"),
+    path('edit_donation_history/<str:Don_id>', AdminDBvIews.edit_donation_history,name="edit_donation_history"),
+    path('edit_donation_history_save', AdminDBvIews.edit_donation_history_save,name="edit_donation_history_save"),
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

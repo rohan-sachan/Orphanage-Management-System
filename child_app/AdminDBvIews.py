@@ -4,9 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.db import connection
+from django.utils.dateparse import parse_date
 
 # from child_app.forms import AddStudentForm, EditStudentForm
 from child_app.models import Room
+from child_app.models import Donation_History
 
 
 def admin_home(request):
@@ -54,9 +56,34 @@ def add_room_save(request):
             messages.error(request,"Failed to Add Room")
             return HttpResponseRedirect(reverse("add_room"))
 
+def add_donation_history(request):
+    return render(request,"admindb_template/add_donation_history_template.html")
+
+def add_donation_history_save(request):
+    if request.method!="POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        Don_id=request.POST.get("don_id")
+        DName=request.POST.get("DName")
+        DPanno=request.POST.get("DPanno")
+        Ddate=parse_date(request.POST.get("Ddate"))
+        Amt=int(request.POST.get("Amt"))
+        curr = connection.cursor()
+        try:
+            curr.execute("INSERT INTO child_app_donation_history VALUES (%s, %s, %s, %s, %s)", [Don_id,DName,DPanno,Ddate,Amt])
+            messages.success(request,"Successfully Added Donation History")
+            return HttpResponseRedirect(reverse("add_donation_history"))
+        except:
+            messages.error(request,"Failed to Add Donation History")
+            return HttpResponseRedirect(reverse("add_donation_history"))
+
 def manage_room(request):
     rooms = Room.objects.raw('SELECT * FROM child_app_room')
     return render(request,"admindb_template/manage_room_template.html", {"rooms":rooms})
+
+def manage_donation_history(request):
+    donations = Donation_History.objects.raw('SELECT * FROM child_app_donation_history')
+    return render(request,"admindb_template/manage_donation_history_template.html", {"donations":donations})
 
 def edit_room(request,room_id):
     room=Room.objects.raw('SELECT * FROM child_app_room WHERE room_id = %s',[room_id])[0]
@@ -77,3 +104,25 @@ def edit_room_save(request):
         except:
             messages.error(request,"Failed to Edit Room Details")
             return HttpResponseRedirect("/edit_room/"+room_id)
+
+def edit_donation_history(request,Don_id):
+    donation=Donation_History.objects.raw('SELECT * FROM child_app_donation_history WHERE Don_id = %s',[Don_id])[0]
+    return render(request,"admindb_template/edit_donation_history_template.html",{"donation":donation})
+
+def edit_donation_history_save(request):
+    if request.method!="POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        Don_id=request.POST.get("Don_id")
+        DName=request.POST.get("DName")
+        DPanno=request.POST.get("DPanno")
+        Ddate=parse_date(request.POST.get("Ddate"))
+        Amt=int(request.POST.get("Amt"))
+        curr = connection.cursor()
+        try:
+            curr.execute("UPDATE child_app_donation_history SET DName = %s, DPanno = %s,Ddate = %s,Amt = %s WHERE Don_id = %s", [DName,DPanno,Ddate,Amt,Don_id])
+            messages.success(request,"Successfully Edited Donation Details")
+            return HttpResponseRedirect("/edit_donation_history/"+Don_id)
+        except:
+            messages.error(request,"Failed to Edit Room Details")
+            return HttpResponseRedirect("/edit_donation_history/"+Don_id)
