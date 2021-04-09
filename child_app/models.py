@@ -15,6 +15,12 @@ class AdminDB(models.Model):
     updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
 
+class Room(models.Model):
+    room_id = models.CharField(max_length = 5, primary_key=True)
+    floor = models.IntegerField()
+    max_occupancy = models.IntegerField()
+    objects = models.Manager()
+
 # class Employees(models.Model):
 #     id=models.AutoField(primary_key=True)
 #     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 
 from OrphanageDBMS import settings
-from child_app import views
+from child_app import views, AdminDBvIews
 
 urlpatterns = [
     path('demo',views.showDemoPage),
@@ -27,4 +27,13 @@ urlpatterns = [
     path('get_user_details', views.GetUserDetails),
     path('logout_user', views.logout_user,name="logout"),
     path('doLogin',views.doLogin,name="do_login"),
+    path('admin_home',AdminDBvIews.admin_home,name="admin_home"),
+    path('add_child',AdminDBvIews.add_child,name="add_child"),
+    # path('add_child_save',AdminDBvIews.add_child_save,name="add_child_save"),
+    path('add_room',AdminDBvIews.add_room,name="add_room"),
+    path('add_room_save',AdminDBvIews.add_room_save,name="add_room_save"),
+    path('manage_room',AdminDBvIews.manage_room,name="manage_room"),
+    path('edit_room/<str:room_id>', AdminDBvIews.edit_room,name="edit_room"),
+    path('edit_room_save', AdminDBvIews.edit_room_save,name="edit_room_save"),
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
