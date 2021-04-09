@@ -18,8 +18,13 @@ from django.contrib import admin
 from django.urls import path,include
 
 from OrphanageDBMS import settings
+from child_app import views
 
 urlpatterns = [
-    path('',include('child_app.urls')),
+    path('demo',views.showDemoPage),
     path('admin/', admin.site.urls),
+    path('', views.ShowLoginPage),
+    path('get_user_details', views.GetUserDetails),
+    path('logout_user', views.logout_user,name="logout"),
+    path('doLogin',views.doLogin,name="do_login"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
