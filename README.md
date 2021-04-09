@@ -11,6 +11,20 @@
 
 ## Important Notes ##
 1. Update requirements file before pushing to remote
-2. Dump mysql database before pushing to remote
-3. After pulling from remote if there are changes to database, then delete the previous local database and recreate it from dump.
-4. Create user in mysql with name: dbms, password: password
+2. Create user in mysql with name: dbms, password: password
+
+## Procedure for adding new functionality##
+Add functionalities which are independent of Employee data
+1. pull from github
+2. delete previous orphanage_management_system mysql database and create new emply database
+3. delete migrations folder
+4. create new class model for your functionality in models.py
+5. Follow this order for creating tables: makemigrations child_app, migrate child_app, makemigrations, migrate
+6. Add and edit html template files by copying template from room functionality or YouTube video repo
+7. Add new item to sidebar_template.html
+8. update urls.py
+9. update AdminDBvIews.py with required functions and raw sql queries
+10. Use objects.raw() for reading
+11. Use cursor() for updating, inserting, deleting
+
+Use mysql in new console or Workbench for checking updates to database
