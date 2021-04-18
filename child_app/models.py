@@ -15,6 +15,7 @@ class AdminDB(models.Model):
     updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
 
+
 class Donation_History(models.Model):
     Don_id = models.CharField(max_length = 5, primary_key=True)
     DName = models.CharField(max_length = 20)
@@ -28,7 +29,20 @@ class Room(models.Model):
     floor = models.IntegerField()
     max_occupancy = models.IntegerField()
     objects = models.Manager()
-
+class Child(models.Model):
+    Child_id = models.CharField(max_length = 5, primary_key=True)
+    First_Name = models.CharField(max_length = 20)
+    Last_Name = models.CharField(max_length = 20)
+    DOB = models.DateField()
+    DOA = models.DateField()
+    CPhoto = models.CharField(max_length = 40)
+    CANo = models.CharField(max_length = 12)
+    CPANo = models.CharField(max_length = 20)
+    GName = models.CharField(max_length = 20)
+    GANo = models.CharField(max_length = 20)
+    GPANo = models.CharField(max_length = 20)
+    rid_id = models.ForeignKey(Room,on_delete=models.CASCADE)
+    objects = models.Manager()
 # class Employees(models.Model):
 #     id=models.AutoField(primary_key=True)
 #     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)

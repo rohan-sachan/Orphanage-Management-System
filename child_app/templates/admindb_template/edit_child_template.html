@@ -1,6 +1,6 @@
 {% extends 'admindb_template/base_template.html' %}
 {% block page_title %}
-Add Child
+Edit Child
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -11,62 +11,66 @@ Add Child
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add Child</h3>
+                <h3 class="card-title">Edit Child {{ child.child_id }}</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/add_child_save" method="post">
+              <form role="form" action="/edit_donation_history_save" method="post">
                   {% csrf_token %}
                 <div class="card-body">
-                   <div class="form-group">
+                  <div class="form-group">
                     <label>Child ID</label>
-                    <input type="text" class="form-control" placeholder="Child ID" name="ChildID">
+                    <input type="hidden" class="form-control" placeholder="Child ID" name="child_id" value="{{ child.child_id }}">
                   </div>
-
-                   <div class="form-group">
+                  <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" placeholder="First Name" name="First_name">
+                    <input type="text" class="form-control" placeholder="First Name" name="First_Name" value="{{ child.First_Name }}">
                   </div>
-                   <div class="form-group">
+                  <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" placeholder="Last Name" name="Last_name">
+                    <input type="text" class="form-control" placeholder=" Last Name" name="Last_Name " value="{{ child.Last_Name }}">
                   </div>
-                   <div class="form-group">
-                    <label>Date of Birth</label>
-                    <input type="text" class="form-control" placeholder="Date of Birth" name="DOB">
+                  <div class="form-group">
+                    <label>Date of Birth"</label>
+                    <input type="text" class="form-control" placeholder="Date of Birth" name="DOB" value="{{ child.DOB }}">
                   </div>
-                   <div class="form-group">
+                  <div class="form-group">
                     <label>Date of Admission</label>
-                    <input type="text" class="form-control" placeholder="Date of Admission" name="DOA">
+                    <input type="text" class="form-control" placeholder="Date od Admission" name="DOA" value="{{ child.DOA }}">
                   </div>
                   <div class="form-group">
                     <label>Child Photo</label>
-                    <input type="text" class="form-control" placeholder="Child Photo" name="CPhoto">
+                    <input type="text" class="form-control" placeholder="Child Photo" name="CPhoto" value="{{ child.CPhoto" }}">
                   </div>
                   <div class="form-group">
-                    <label>Child AADHAR No.</label>
-                    <input type="text" class="form-control" placeholder="AADHAR No." name="CANo">
+                    <label>AADHAR No./label>
+                    <input type="text" class="form-control" placeholder="AADHAR No." name="CANo" value="{{ child.CANo }}">
+                  </div>
                   </div>
                   <div class="form-group">
-                    <label>Child PAN No.</label>
-                    <input type="text" class="form-control" placeholder="PAN No." name="CPANNo">
+                    <label>PAN No.</label>
+                    <input type="text" class="form-control" placeholder="PAN No." name="CPANNo" value="{{ child.CPANNo }}">
+                  </div>
                   </div>
                   <div class="form-group">
                     <label>Guardian Name</label>
-                    <input type="text" class="form-control" placeholder="Guardian Name" name="GName">
+                    <input type="text" class="form-control" placeholder="Guardian Name" name="GName" value="{{ child.GName}}">
+                  </div>
                   </div>
                   <div class="form-group">
                     <label>Guardian AADHAR No.</label>
-                    <input type="text" class="form-control" placeholder="Guardian AADHAR No." name="GANo">
+                    <input type="text" class="form-control" placeholder="Guardian AADHAR No." name="GANo" value="{{ child.GANo }}">
+                  </div>
                   </div>
                   <div class="form-group">
                     <label>Guardian PAN No.</label>
-                    <input type="text" class="form-control" placeholder="Guardian PAN No." name="GPANNo">
+                    <input type="text" class="form-control" placeholder="Guardian PAN No." name="GPANNo" value="{{ child.GPANNo }}">
                   </div>
                   <div class="form-group">
-                    <label>ROOM ID</label>
-                    <input type="text" class="form-control" placeholder="ROOM ID" name="rid_id">
+                    <label>ROOM ID"</label>
+                    <input type="text" class="form-control" placeholder="ROOM ID" name="rid_id" value="{{ child.rid_id }}">
                   </div>
+                  
                       <div class="form-group">
                       {% if messages %}
                         {% for message in messages %}
@@ -84,7 +88,7 @@ Add Child
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Add Child</button>
+                  <button type="submit" class="btn btn-primary btn-block">Change Donation History Details</button>
                 </div>
               </form>
             </div>

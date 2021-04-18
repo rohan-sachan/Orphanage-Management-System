@@ -52,6 +52,15 @@
             </a>
           </li>
           <li class="nav-item">
+            {% url 'manage_child' as manage_child %}
+            <a href="{{ manage_child }}" class="nav-link {% if request.path == manage_child %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Child
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             {% url 'manage_room' as manage_room %}
             <a href="{{ manage_room }}" class="nav-link {% if request.path == manage_child %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
