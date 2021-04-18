@@ -29,6 +29,7 @@ class Room(models.Model):
     floor = models.IntegerField()
     max_occupancy = models.IntegerField()
     objects = models.Manager()
+
 class Child(models.Model):
     Child_id = models.CharField(max_length = 5, primary_key=True)
     First_Name = models.CharField(max_length = 20)
@@ -41,7 +42,7 @@ class Child(models.Model):
     GName = models.CharField(max_length = 20)
     GANo = models.CharField(max_length = 20)
     GPANo = models.CharField(max_length = 20)
-    rid_id = models.ForeignKey(Room,on_delete=models.CASCADE)
+    rid = models.ForeignKey(Room,on_delete=models.CASCADE)
     objects = models.Manager()
 # class Employees(models.Model):
 #     id=models.AutoField(primary_key=True)

@@ -46,7 +46,7 @@ Manage Child
                   <tbody>
                   {% for child in childrens %}
                     <tr>
-                      <td>{{ child.child_id }}</td>
+                      <td>{{ child.Child_id }}</td>
                       <td>{{ child.First_Name }}</td>
                       <td>{{ child.Last_Name }}</td>
                       <td>{{ child.DOB }}</td>
@@ -57,8 +57,8 @@ Manage Child
                       <td>{{ child.GName }}</td>
                       <td>{{ child.GANo }}</td>
                       <td>{{ child.GPANo }}</td>
-                      <td>{{ child.rid_id }}</td>
-                      <td><a href="/edit_child/{{ child.child_id }}" class="btn btn-success">Edit</a></td>
+                      <td>{{ child.rid }}</td>
+                      <td><a href="/edit_child/{{ child.Child_id }}" class="btn btn-success">Edit</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>

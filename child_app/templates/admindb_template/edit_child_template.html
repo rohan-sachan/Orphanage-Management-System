@@ -11,16 +11,16 @@ Edit Child
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Child {{ child.child_id }}</h3>
+                <h3 class="card-title">Edit Child {{ child.Child_id }}</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/edit_donation_history_save" method="post">
+              <form role="form" action="/edit_child_save" method="post">
                   {% csrf_token %}
                 <div class="card-body">
                   <div class="form-group">
                     <label>Child ID</label>
-                    <input type="hidden" class="form-control" placeholder="Child ID" name="child_id" value="{{ child.child_id }}">
+                    <input type="hidden" class="form-control" placeholder="Child ID" name="Child_id" value="{{ child.Child_id }}">
                   </div>
                   <div class="form-group">
                     <label>First Name</label>
@@ -28,10 +28,10 @@ Edit Child
                   </div>
                   <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" placeholder=" Last Name" name="Last_Name " value="{{ child.Last_Name }}">
+                    <input type="text" class="form-control" placeholder="Last Name" name="Last_Name" value="{{ child.Last_Name }}">
                   </div>
                   <div class="form-group">
-                    <label>Date of Birth"</label>
+                    <label>Date of Birth</label>
                     <input type="text" class="form-control" placeholder="Date of Birth" name="DOB" value="{{ child.DOB }}">
                   </div>
                   <div class="form-group">
@@ -40,35 +40,35 @@ Edit Child
                   </div>
                   <div class="form-group">
                     <label>Child Photo</label>
-                    <input type="text" class="form-control" placeholder="Child Photo" name="CPhoto" value="{{ child.CPhoto" }}">
+                    <input type="text" class="form-control" placeholder="Child Photo" name="CPhoto" value="{{ child.CPhoto }}">
                   </div>
                   <div class="form-group">
-                    <label>AADHAR No./label>
+                    <label>AADHAR No.</label>
                     <input type="text" class="form-control" placeholder="AADHAR No." name="CANo" value="{{ child.CANo }}">
                   </div>
-                  </div>
+                  
                   <div class="form-group">
                     <label>PAN No.</label>
-                    <input type="text" class="form-control" placeholder="PAN No." name="CPANNo" value="{{ child.CPANNo }}">
+                    <input type="text" class="form-control" placeholder="PAN No." name="CPANo" value="{{ child.CPANo }}">
                   </div>
-                  </div>
+                  
                   <div class="form-group">
                     <label>Guardian Name</label>
                     <input type="text" class="form-control" placeholder="Guardian Name" name="GName" value="{{ child.GName}}">
                   </div>
-                  </div>
+                
                   <div class="form-group">
                     <label>Guardian AADHAR No.</label>
                     <input type="text" class="form-control" placeholder="Guardian AADHAR No." name="GANo" value="{{ child.GANo }}">
                   </div>
-                  </div>
+                  
                   <div class="form-group">
                     <label>Guardian PAN No.</label>
-                    <input type="text" class="form-control" placeholder="Guardian PAN No." name="GPANNo" value="{{ child.GPANNo }}">
+                    <input type="text" class="form-control" placeholder="Guardian PAN No." name="GPANo" value="{{ child.GPANo }}">
                   </div>
                   <div class="form-group">
                     <label>ROOM ID"</label>
-                    <input type="text" class="form-control" placeholder="ROOM ID" name="rid_id" value="{{ child.rid_id }}">
+                    <input type="text" class="form-control" placeholder="ROOM ID" name="rid" value="{{ child.rid }}">
                   </div>
                   
                       <div class="form-group">
@@ -88,7 +88,7 @@ Edit Child
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Change Donation History Details</button>
+                  <button type="submit" class="btn btn-primary btn-block">Change Child Details</button>
                 </div>
               </form>
             </div>
