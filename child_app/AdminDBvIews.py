@@ -36,13 +36,13 @@ def add_child_save(request):
         GPANNo=request.POST.get("GPANNo")
         rid_id=request.POST.get("rid_id")
         curr = connection.cursor()
-        #try:
-        curr.execute("INSERT INTO child_app_child VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [Child_id,First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANNo,GName,GANo,GPANNo,rid_id])
-        messages.success(request,"Successfully Added Child")
-        return HttpResponseRedirect(reverse("add_child"))
-       # except:
-        #    messages.error(request,"Failed to Add Child")
-         #   return HttpResponseRedirect(reverse("add_child"))
+        try:
+            curr.execute("INSERT INTO child_app_child VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [Child_id,First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANNo,GName,GANo,GPANNo,rid_id])
+            messages.success(request,"Successfully Added Child")
+            return HttpResponseRedirect(reverse("add_child"))
+        except:
+            messages.error(request,"Failed to Add Child")
+            return HttpResponseRedirect(reverse("add_child"))
 
 # def add_child_save(request):
 #     if request.method!="POST":
@@ -90,15 +90,15 @@ def add_office_bearers_save(request):
     if request.method!="POST":
         return HttpResponse("Method Not Allowed")
     else:
-        office_id=request.POST.get("office_id")
+        chair_no=request.POST.get("chair_no")
         position=request.POST.get("position")
         curr = connection.cursor()
         try:
-            curr.execute("INSERT INTO child_app_office_bearers VALUES (%s, %s)", [office_id,position])
+            curr.execute("INSERT INTO child_app_office_bearers VALUES (%s, %s)", [chair_no,position])
             messages.success(request,"Successfully Added Office Bearer")
             return HttpResponseRedirect(reverse("add_office_bearers"))
         except:
-            messages.error(request,"Failed to Add Office Bearers")
+            messages.error(request)
             return HttpResponseRedirect(reverse("add_office_bearers"))
             
 def add_donation_history(request):
@@ -187,24 +187,24 @@ def edit_room_save(request):
             messages.error(request,"Failed to Edit Room Details")
             return HttpResponseRedirect("/edit_room/"+room_id)
 
-def edit_office_bearers(request,room_id):
-    officeBearers=Office_Bearers.objects.raw('SELECT * FROM child_app_office_bearers WHERE office_id = %s',[office_id])[0]
+def edit_office_bearers(request,chair_no):
+    officeBearers=Office_Bearers.objects.raw('SELECT * FROM child_app_office_bearers WHERE chair_no = %s',[chair_no])[0]
     return render(request,"admindb_template/edit_office_bearers_template.html",{"officeBearers":officeBearers})
 
 def edit_office_bearers_save(request):
     if request.method!="POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        office_id=request.POST.get("office_id")
-        position=int(request.POST.get("position"))
+        chair_no=request.POST.get("chair_no")
+        position=request.POST.get("position")
         curr = connection.cursor()
         try:
-            curr.execute("UPDATE child_app_office_bearers SET position = %s WHERE office_id = %s", [position,office_id])
+            curr.execute("UPDATE child_app_office_bearers SET position = %s WHERE chair_no = %s", [position,chair_no])
             messages.success(request,"Successfully Edited Office Bearer Details")
-            return HttpResponseRedirect("/edit_office_bearers/"+office_id)
+            return HttpResponseRedirect("/edit_office_bearers/"+chair_no)
         except:
             messages.error(request,"Failed to Edit Office Bearer Details")
-            return HttpResponseRedirect("/edit_office_bearers/"+office_id)
+            return HttpResponseRedirect("/edit_office_bearers/"+chair_no)
 
 def edit_donation_history(request,Don_id):
     donation=Donation_History.objects.raw('SELECT * FROM child_app_donation_history WHERE Don_id = %s',[Don_id])[0]

@@ -37,9 +37,9 @@ Manage Office Bearers
                   <tbody>
                   {% for officeBearer in officeBearers %}
                     <tr>
-                      <td>{{ officeBearer.office_id }}</td>
+                      <td>{{ officeBearer.chair_no }}</td>
                       <td>{{ officeBearer.position }}</td>
-                      <td><a href="/edit_office_bearers/{{ officeBearer.office_id }}" class="btn btn-success">Edit</a></td>
+                      <td><a href="/edit_office_bearers/{{ officeBearer.chair_no }}" class="btn btn-success">Edit</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
