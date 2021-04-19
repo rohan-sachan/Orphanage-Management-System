@@ -35,13 +35,13 @@ def add_child_save(request):
         GPANNo=request.POST.get("GPANNo")
         rid_id=request.POST.get("rid_id")
         curr = connection.cursor()
-        #try:
-        curr.execute("INSERT INTO child_app_child VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [Child_id,First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANNo,GName,GANo,GPANNo,rid_id])
-        messages.success(request,"Successfully Added Child")
-        return HttpResponseRedirect(reverse("add_child"))
-       # except:
-        #    messages.error(request,"Failed to Add Child")
-         #   return HttpResponseRedirect(reverse("add_child"))
+        try:
+            curr.execute("INSERT INTO child_app_child VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [Child_id,First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANNo,GName,GANo,GPANNo,rid_id])
+            messages.success(request,"Successfully Added Child")
+            return HttpResponseRedirect(reverse("add_child"))
+        except:
+            messages.error(request,"Failed to Add Child")
+            return HttpResponseRedirect(reverse("add_child"))
 
 # def add_child_save(request):
 #     if request.method!="POST":
