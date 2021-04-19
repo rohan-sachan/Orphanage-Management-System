@@ -10,6 +10,8 @@ from django.utils.dateparse import parse_date
 from child_app.models import Child
 from child_app.models import Room
 from child_app.models import Donation_History
+from child_app.models import Employee
+from child_app.models import CustomUser
 from child_app.models import Office_Bearers
 
 
@@ -43,26 +45,6 @@ def add_child_save(request):
         except:
             messages.error(request,"Failed to Add Child")
             return HttpResponseRedirect(reverse("add_child"))
-
-# def add_child_save(request):
-#     if request.method!="POST":
-#         return HttpResponse("Method Not Allowed")
-#     else:
-#         first_name=request.POST.get("first_name")
-#         last_name=request.POST.get("last_name")
-#         username=request.POST.get("username")
-#         email=request.POST.get("email")
-#         password=request.POST.get("password")
-#         address=request.POST.get("address")
-#         try:
-#             user=CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=2)
-#             user.staffs.address=address
-#             user.save()
-#             messages.success(request,"Successfully Added Staff")
-#             return HttpResponseRedirect(reverse("add_staff"))
-#         except:
-#             messages.error(request,"Failed to Add Staff")
-#             return HttpResponseRedirect(reverse("add_staff"))
 
 def add_room(request):
     return render(request,"admindb_template/add_room_template.html")
@@ -122,6 +104,37 @@ def add_donation_history_save(request):
             messages.error(request,"Failed to Add Donation History")
             return HttpResponseRedirect(reverse("add_donation_history"))
 
+def add_employee(request):
+    return render(request,"admindb_template/add_employee_template.html")
+
+def add_employee_save(request):
+    if request.method!="POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
+        username=request.POST.get("username")
+        email=request.POST.get("email")
+        password=request.POST.get("password")
+        Emp_id=request.POST.get("Emp_id")
+        PhNum=request.POST.get("PhNum")
+        EANo=request.POST.get("EANo")
+        DOJ=parse_date(request.POST.get("DOJ"))
+        RType=request.POST.get("RType")
+        try:
+            user=CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=2)
+            user.employee.Emp_id=Emp_id
+            user.employee.PhNum=PhNum
+            user.employee.EANo=EANo
+            user.employee.DOJ=DOJ
+            user.employee.RType=RType
+            user.save()
+            messages.success(request,"Successfully Added Employee")
+            return HttpResponseRedirect(reverse("add_employee"))
+        except:
+            messages.error(request,"Failed to Add Employee")
+            return HttpResponseRedirect(reverse("add_employee"))
+
 def manage_child(request):
     childrens = Child.objects.raw('SELECT * FROM child_app_child')
     return render(request,"admindb_template/manage_child_template.html", {"childrens":childrens})
@@ -137,6 +150,10 @@ def manage_office_bearers(request):
 def manage_donation_history(request):
     donations = Donation_History.objects.raw('SELECT * FROM child_app_donation_history')
     return render(request,"admindb_template/manage_donation_history_template.html", {"donations":donations})
+
+def manage_employee(request):
+    employees=Employee.objects.all()
+    return render(request,"admindb_template/manage_employee_template.html", {"employees":employees})
 
 def edit_child(request,Child_id):
     child=Child.objects.raw('SELECT * FROM child_app_child WHERE Child_id = %s',[Child_id])[0]
@@ -227,3 +244,43 @@ def edit_donation_history_save(request):
         except:
             messages.error(request,"Failed to Edit Donation Details")
             return HttpResponseRedirect("/edit_donation_history/"+Don_id)
+
+def edit_employee(request,emp_no):
+    emp=Employee.objects.get(admin=emp_no)
+    return render(request,"admindb_template/edit_employee_template.html", {"emp":emp,"emp_no":emp_no})
+
+def edit_employee_save(request):
+    if request.method!="POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        emp_no=request.POST.get("emp_no")
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
+        username=request.POST.get("username")
+        email=request.POST.get("email")
+        Emp_id=request.POST.get("Emp_id")
+        PhNum=request.POST.get("PhNum")
+        EANo=request.POST.get("EANo")
+        DOJ=parse_date(request.POST.get("DOJ"))
+        RType=request.POST.get("RType")
+
+        try:
+            user=CustomUser.objects.get(id=emp_no)
+            user.first_name=first_name
+            user.last_name=last_name
+            user.email=email
+            user.username=username
+            user.save()
+
+            employee=Employee.objects.get(admin=emp_no)
+            employee.Emp_id=Emp_id
+            employee.PhNum=PhNum
+            employee.EANo=EANo
+            employee.DOJ=DOJ
+            employee.RType=RType
+            employee.save()
+            messages.success(request,"Successfully Edited Employee")
+            return HttpResponseRedirect("/edit_employee/"+emp_no)
+        except:
+            messages.error(request,"Failed to Edit Employee")
+            return HttpResponseRedirect("/edit_employee/"+emp_no)
