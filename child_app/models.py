@@ -56,6 +56,10 @@ class Child(models.Model):
     rid = models.ForeignKey(Room,on_delete=models.CASCADE)
     objects = models.Manager()
 
+class Office_Bearers(models.Model):
+    chair_no = models.CharField(max_length = 5, primary_key=True)
+    position = models.CharField(max_length = 20)
+    objects = models.Manager()
 
 
 @receiver(post_save,sender=CustomUser)

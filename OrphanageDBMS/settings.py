@@ -84,6 +84,10 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        
+        # for 'ENGINE': 'django.db.backends.mysql' use `$ pip install mysqlclient`
+        # for 'ENGINE': 'mysql.connector.django' use `$ pip install mysql-connector-python`
+
         'ENGINE':'django.db.backends.mysql',
         'NAME':'orphanage_management_system',
         'USER':'dbms',
