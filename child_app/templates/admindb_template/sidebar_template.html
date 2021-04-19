@@ -34,8 +34,8 @@
             </a>
           </li>
           <li class="nav-item">
-            {% url 'add_office_bearer' as add_office_bearer %}
-            <a href="{{ add_office_bearer }}" class="nav-link {% if request.path == add_office_bearer %} active {% endif %}">
+            {% url 'add_office_bearers' as add_office_bearers %}
+            <a href="{{ add_office_bearers }}" class="nav-link {% if request.path == add_office_bearers %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Add Office Bearer

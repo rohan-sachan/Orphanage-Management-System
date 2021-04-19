@@ -91,7 +91,7 @@ def add_office_bearers_save(request):
         return HttpResponse("Method Not Allowed")
     else:
         office_id=request.POST.get("office_id")
-        position=int(request.POST.get("position"))
+        position=request.POST.get("position")
         curr = connection.cursor()
         try:
             curr.execute("INSERT INTO child_app_office_bearers VALUES (%s, %s)", [office_id,position])
