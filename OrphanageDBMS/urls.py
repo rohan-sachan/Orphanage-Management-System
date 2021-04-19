@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 
 from OrphanageDBMS import settings
-from child_app import views, AdminDBvIews
+from child_app import views, AdminDBvIews, EmployeeDBviews
 
 urlpatterns = [
     path('demo',views.showDemoPage),
@@ -28,21 +28,27 @@ urlpatterns = [
     path('logout_user', views.logout_user,name="logout"),
     path('doLogin',views.doLogin,name="do_login"),
     path('admin_home',AdminDBvIews.admin_home,name="admin_home"),
+    path('employee_home',EmployeeDBviews.employee_home,name="employee_home"),
     path('add_child',AdminDBvIews.add_child,name="add_child"),
     path('add_child_save',AdminDBvIews.add_child_save,name="add_child_save"),
-    # path('add_child_save',AdminDBvIews.add_child_save,name="add_child_save"),
     path('add_room',AdminDBvIews.add_room,name="add_room"),
     path('add_room_save',AdminDBvIews.add_room_save,name="add_room_save"),
     path('add_donation_history',AdminDBvIews.add_donation_history,name="add_donation_history"),
     path('add_donation_history_save',AdminDBvIews.add_donation_history_save,name="add_donation_history_save"),
+    path('add_employee',AdminDBvIews.add_employee,name="add_employee"),
+    path('add_employee_save',AdminDBvIews.add_employee_save,name="add_employee_save"),
     path('manage_child',AdminDBvIews.manage_child,name="manage_child"),
     path('manage_room',AdminDBvIews.manage_room,name="manage_room"),
+    path('manage_room_emp',EmployeeDBviews.manage_room_emp,name="manage_room_emp"),
     path('manage_donation_history',AdminDBvIews.manage_donation_history,name="manage_donation_history"),
+    path('manage_employee',AdminDBvIews.manage_employee,name="manage_employee"),
     path('edit_child/<str:Child_id>', AdminDBvIews.edit_child,name="edit_child"),
     path('edit_child_save', AdminDBvIews.edit_child_save,name="edit_child_save"),
     path('edit_room/<str:room_id>', AdminDBvIews.edit_room,name="edit_room"),
     path('edit_room_save', AdminDBvIews.edit_room_save,name="edit_room_save"),
     path('edit_donation_history/<str:Don_id>', AdminDBvIews.edit_donation_history,name="edit_donation_history"),
     path('edit_donation_history_save', AdminDBvIews.edit_donation_history_save,name="edit_donation_history_save"),
+    path('edit_employee/<str:emp_no>', AdminDBvIews.edit_employee,name="edit_employee"),
+    path('edit_employee_save', AdminDBvIews.edit_employee_save,name="edit_employee_save"),
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
