@@ -18,6 +18,8 @@ def admin_home(request):
 
 def add_child(request):
     return render(request,"admindb_template/add_child_template.html")
+def add_medical_history(request):
+    return render(request,"admindb_template/add_medical_history_template.html")
     
 def add_child_save(request):
     if request.method!="POST":
@@ -43,6 +45,24 @@ def add_child_save(request):
         except:
             messages.error(request,"Failed to Add Child")
             return HttpResponseRedirect(reverse("add_child"))
+def add_medical_history_save(request):
+    if request.method!="POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        mno=request.POST.get("mno")
+        cid=request.POST.get("cid")
+        datech=parse_date(request.POST.get("datech"))
+        rlink=request.POST.get("rlink")
+        mtype=bool(request.POST.get("mtype"))
+        curr = connection.cursor()
+        try:
+            curr.execute("INSERT INTO medical_history_app_medical_history VALUES (%s, %s, %s, %s, %s)", [mno,cid,datech,rlink,mtype])
+            messages.success(request,"Successfully Added Medical History")
+            return HttpResponseRedirect(reverse("add_medical_history"))
+        except:
+            messages.error(request,"Failed to Add Medical History")
+            return HttpResponseRedirect(reverse("add_medical_history"))
+
 
 # def add_child_save(request):
 #     if request.method!="POST":
@@ -129,6 +149,9 @@ def manage_child(request):
 def manage_room(request):
     rooms = Room.objects.raw('SELECT * FROM child_app_room')
     return render(request,"admindb_template/manage_room_template.html", {"rooms":rooms})
+def manage_medical_history(request):
+    medicalhistory = Medical_History.objects.raw('SELECT * FROM child_app_medical_history')
+    return render(request,"admindb_template/manage_medical_history_template.html", {"medicalhistory":medicalhistory})
 
 def manage_office_bearers(request):
     officeBearers = Office_Bearers.objects.raw('SELECT * FROM child_app_office_bearers')
@@ -186,6 +209,28 @@ def edit_room_save(request):
         except:
             messages.error(request,"Failed to Edit Room Details")
             return HttpResponseRedirect("/edit_room/"+room_id)
+def edit_medical_history(request,mno):
+    medicalhistory= Medical_History.objects.raw('SELECT * FROM child_app_medical_history WHERE mno = %s',[mno])[0]
+    return render(request,"admindb_template/edit_medical_history_template.html",{"medicalhistory":medicalhistory})
+
+def edit_medical_history_save(request):
+    if request.method!="POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        mno=request.POST.get("mno")
+        cid=request.POST.get("cid")
+        datech=parse_date(request.POST.get("datech"))
+        rlink=(request.POST.get("rlink"))
+        mtype=bool(request.POST.get("mtype"))
+        curr = connection.cursor()
+        try:
+            curr.execute("UPDATE child_app_medical_history SET rlink = %s, datech = %s, mtype =%s, cid =%s, WHERE mno = %s", [rlink,datech,mtype,cid,mno])
+            messages.success(request,"Successfully Edited Medical History Details")
+            return HttpResponseRedirect("/edit_medical_history/"+mno)
+        except:
+            messages.error(request,"Failed to Edit Medical History Details")
+            return HttpResponseRedirect("/edit_medical_history/"+mno)
+
 
 def edit_office_bearers(request,chair_no):
     officeBearers=Office_Bearers.objects.raw('SELECT * FROM child_app_office_bearers WHERE chair_no = %s',[chair_no])[0]

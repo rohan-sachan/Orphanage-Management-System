@@ -52,6 +52,15 @@
             </a>
           </li>
           <li class="nav-item">
+            {% url 'add_medical_history' as add_medical_history %}
+            <a href="{{ add_medical_history }}" class="nav-link {% if request.path == add_medical_history %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Medical History
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             {% url 'add_donation_history' as add_donation_history %}
             <a href="{{ add_donation_history }}" class="nav-link {% if request.path == add_donation_history %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
@@ -66,6 +75,15 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Child
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            {% url 'manage_medical_history' as manage_medical_history %}
+            <a href="{{ manage_medical_history }}" class="nav-link {% if request.path == manage_medical_history %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Medical History
               </p>
             </a>
           </li>
