@@ -10,6 +10,7 @@ from django.utils.dateparse import parse_date
 from child_app.models import Child
 from child_app.models import Room
 from child_app.models import Donation_History
+from child_app.models import Office_Bearers
 
 
 def admin_home(request):
@@ -81,6 +82,24 @@ def add_room_save(request):
         except:
             messages.error(request,"Failed to Add Room")
             return HttpResponseRedirect(reverse("add_room"))
+
+def add_office_bearers(request):
+    return render(request,"admindb_template/add_office_bearers_template.html")
+
+def add_office_bearers_save(request):
+    if request.method!="POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        office_id=request.POST.get("office_id")
+        position=int(request.POST.get("position"))
+        curr = connection.cursor()
+        try:
+            curr.execute("INSERT INTO child_app_office_bearers VALUES (%s, %s)", [office_id,position])
+            messages.success(request,"Successfully Added Office Bearer")
+            return HttpResponseRedirect(reverse("add_office_bearers"))
+        except:
+            messages.error(request,"Failed to Add Office Bearers")
+            return HttpResponseRedirect(reverse("add_office_bearers"))
             
 def add_donation_history(request):
     return render(request,"admindb_template/add_donation_history_template.html")
@@ -110,6 +129,10 @@ def manage_child(request):
 def manage_room(request):
     rooms = Room.objects.raw('SELECT * FROM child_app_room')
     return render(request,"admindb_template/manage_room_template.html", {"rooms":rooms})
+
+def manage_office_bearers(request):
+    officeBearers = Office_Bearers.objects.raw('SELECT * FROM child_app_office_bearers')
+    return render(request,"admindb_template/manage_office_bearers_template.html", {"officeBearers":officeBearers})
 
 def manage_donation_history(request):
     donations = Donation_History.objects.raw('SELECT * FROM child_app_donation_history')
@@ -163,6 +186,25 @@ def edit_room_save(request):
         except:
             messages.error(request,"Failed to Edit Room Details")
             return HttpResponseRedirect("/edit_room/"+room_id)
+
+def edit_office_bearers(request,room_id):
+    officeBearers=Office_Bearers.objects.raw('SELECT * FROM child_app_office_bearers WHERE office_id = %s',[office_id])[0]
+    return render(request,"admindb_template/edit_office_bearers_template.html",{"officeBearers":officeBearers})
+
+def edit_office_bearers_save(request):
+    if request.method!="POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        office_id=request.POST.get("office_id")
+        position=int(request.POST.get("position"))
+        curr = connection.cursor()
+        try:
+            curr.execute("UPDATE child_app_office_bearers SET position = %s WHERE office_id = %s", [position,office_id])
+            messages.success(request,"Successfully Edited Office Bearer Details")
+            return HttpResponseRedirect("/edit_office_bearers/"+office_id)
+        except:
+            messages.error(request,"Failed to Edit Office Bearer Details")
+            return HttpResponseRedirect("/edit_office_bearers/"+office_id)
 
 def edit_donation_history(request,Don_id):
     donation=Donation_History.objects.raw('SELECT * FROM child_app_donation_history WHERE Don_id = %s',[Don_id])[0]

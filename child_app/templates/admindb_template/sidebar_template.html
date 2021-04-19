@@ -34,6 +34,15 @@
             </a>
           </li>
           <li class="nav-item">
+            {% url 'add_office_bearer' as add_office_bearer %}
+            <a href="{{ add_office_bearer }}" class="nav-link {% if request.path == add_office_bearer %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Office Bearer
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             {% url 'add_room' as add_room %}
             <a href="{{ add_room }}" class="nav-link {% if request.path == add_child %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
@@ -57,6 +66,15 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Child
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            {% url 'manage_office_bearers' as manage_office_bearers %}
+            <a href="{{ manage_office_bearers }}" class="nav-link {% if request.path == manage_office_bearers %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Office Bearers
               </p>
             </a>
           </li>

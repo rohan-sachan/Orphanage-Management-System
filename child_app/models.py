@@ -44,6 +44,12 @@ class Child(models.Model):
     GPANo = models.CharField(max_length = 20)
     rid = models.ForeignKey(Room,on_delete=models.CASCADE)
     objects = models.Manager()
+
+class Office_Bearers(models.Model):
+    chair_no = models.CharField(max_length = 5, primary_key=True)
+    position = models.CharField(max_length = 20)
+    objects = models.Manager()
+
 # class Employees(models.Model):
 #     id=models.AutoField(primary_key=True)
 #     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
