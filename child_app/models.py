@@ -59,6 +59,7 @@ class Child(models.Model):
 class Office_Bearers(models.Model):
     chair_no = models.CharField(max_length = 5, primary_key=True)
     position = models.CharField(max_length = 20)
+    eid = models.ForeignKey(Employee,on_delete=models.CASCADE)
     objects = models.Manager()
 
 

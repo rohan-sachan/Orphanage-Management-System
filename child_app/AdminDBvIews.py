@@ -74,9 +74,10 @@ def add_office_bearers_save(request):
     else:
         chair_no=request.POST.get("chair_no")
         position=request.POST.get("position")
+        eid_id=request.POST.get("eid_id")
         curr = connection.cursor()
         try:
-            curr.execute("INSERT INTO child_app_office_bearers VALUES (%s, %s)", [chair_no,position])
+            curr.execute("INSERT INTO child_app_office_bearers VALUES (%s, %s, %s)", [chair_no,position,eid_id])
             messages.success(request,"Successfully Added Office Bearer")
             return HttpResponseRedirect(reverse("add_office_bearers"))
         except:
@@ -214,9 +215,10 @@ def edit_office_bearers_save(request):
     else:
         chair_no=request.POST.get("chair_no")
         position=request.POST.get("position")
+        eid_id=request.POST.get("eid")
         curr = connection.cursor()
         try:
-            curr.execute("UPDATE child_app_office_bearers SET position = %s WHERE chair_no = %s", [position,chair_no])
+            curr.execute("UPDATE child_app_office_bearers SET position = %s, eid_id=%s WHERE chair_no = %s", [position,eid_id,chair_no])
             messages.success(request,"Successfully Edited Office Bearer Details")
             return HttpResponseRedirect("/edit_office_bearers/"+chair_no)
         except:
