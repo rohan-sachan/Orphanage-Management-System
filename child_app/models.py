@@ -54,6 +54,7 @@ class Child(models.Model):
     GANo = models.CharField(max_length = 20)
     GPANo = models.CharField(max_length = 20)
     rid = models.ForeignKey(Room,on_delete=models.CASCADE)
+    eid = models.ForeignKey(Employee,on_delete=models.CASCADE)
     objects = models.Manager()
 
 class Office_Bearers(models.Model):

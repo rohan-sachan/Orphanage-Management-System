@@ -37,9 +37,10 @@ def add_child_save(request):
         GANo=request.POST.get("GANo")
         GPANNo=request.POST.get("GPANNo")
         rid_id=request.POST.get("rid_id")
+        eid_id=request.POST.get("eid_id")
         curr = connection.cursor()
         try:
-            curr.execute("INSERT INTO child_app_child VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [Child_id,First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANNo,GName,GANo,GPANNo,rid_id])
+            curr.execute("INSERT INTO child_app_child VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [Child_id,First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANNo,GName,GANo,GPANNo,rid_id,eid_id])
             messages.success(request,"Successfully Added Child")
             return HttpResponseRedirect(reverse("add_child"))
         except:
@@ -175,9 +176,10 @@ def edit_child_save(request):
         GANo=request.POST.get("GANo")
         GPANo=request.POST.get("GPANo")
         rid_id=request.POST.get("rid")
+        eid_id=request.POST.get("eid")
         curr = connection.cursor()
         try:
-            curr.execute("UPDATE child_app_child SET First_Name = %s,Last_Name = %s,DOB = %s,DOA = %s,CPhoto = %s,CANo = %s,CPANo = %s,GName = %s,GANo = %s,GPANo = %s,rid_id = %s  WHERE child_id = %s", [First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANo,GName,GANo,GPANo,rid_id,Child_id])
+            curr.execute("UPDATE child_app_child SET First_Name = %s,Last_Name = %s,DOB = %s,DOA = %s,CPhoto = %s,CANo = %s,CPANo = %s,GName = %s,GANo = %s,GPANo = %s,rid_id = %s,eid_id=%s  WHERE child_id = %s", [First_Name,Last_Name,DOB,DOA,CPhoto,CANo,CPANo,GName,GANo,GPANo,rid_id,eid_id,Child_id])
             messages.success(request,"Successfully Edited Child Details")
             return HttpResponseRedirect("/edit_child/"+Child_id)
         except:

@@ -41,6 +41,7 @@ Manage Child
                       <th>Guardian AADHAR No.</th>
                       <th>Guardian PAN No.</th>
                       <th>Room ID</th>
+                      <th>Employee ID</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -58,6 +59,7 @@ Manage Child
                       <td>{{ child.GANo }}</td>
                       <td>{{ child.GPANo }}</td>
                       <td>{{ child.rid }}</td>
+                      <td>{{ child.eid }}</td>
                       <td><a href="/edit_child/{{ child.Child_id }}" class="btn btn-success">Edit</a></td>
                     </tr>
                   {% endfor %}
