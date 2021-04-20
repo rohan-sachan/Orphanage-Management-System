@@ -30,8 +30,7 @@ media
 
 # Distribution / packaging 
 .Python build/ 
-develop-eggs/ 
-dist/ 
+develop-eggs/
 downloads/ 
 eggs/ 
 .eggs/ 
