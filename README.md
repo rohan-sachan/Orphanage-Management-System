@@ -29,4 +29,5 @@ Add functionalities which are independent of Employee data
 11. Use objects.raw() for reading
 12. Use cursor() for updating, inserting, deleting
 
+Use command `python manage.py collectstatic` before `python manage.py runserver` if the static files are not rendered.
 Use mysql in new console or Workbench for checking updates to database
