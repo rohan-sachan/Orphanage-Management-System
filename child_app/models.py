@@ -34,7 +34,6 @@ class Donation_History(models.Model):
     Ddate = models.DateField()
     Amt = models.IntegerField()
     objects = models.Manager()
-
 class Room(models.Model):
     room_id = models.CharField(max_length = 5, primary_key=True)
     floor = models.IntegerField()
@@ -55,6 +54,15 @@ class Child(models.Model):
     GPANo = models.CharField(max_length = 20)
     rid = models.ForeignKey(Room,on_delete=models.CASCADE)
     objects = models.Manager()
+
+class Medical_History(models.Model):
+    mno = models.CharField(max_length = 5, primary_key=True)
+    cid = models.ForeignKey(Child,on_delete=models.CASCADE)
+    datech = models.DateField()
+    mtype = models.BooleanField()
+    rlink = models.CharField(max_length = 20)
+    objects = models.Manager()
+    
 
 class Office_Bearers(models.Model):
     chair_no = models.CharField(max_length = 5, primary_key=True)

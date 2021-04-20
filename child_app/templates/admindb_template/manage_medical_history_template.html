@@ -1,6 +1,6 @@
 {% extends 'admindb_template/base_template.html' %}
 {% block page_title %}
-Manage Donation History
+Manage MedicalHistory
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -10,11 +10,10 @@ Manage Donation History
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Donation History Details</h3>
+                <h3 class="card-title">Medical History</h3>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                     </div>
@@ -26,23 +25,23 @@ Manage Donation History
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>Donation ID</th>
-                      <th>Donor Name</th>
-                      <th>Donor PAN Number</th>
-                      <th>Donation Date</th>
-                      <th>Amount</th>
+                      <th>Medical No</th>
+                      <th>Child ID</th>
+                      <th>Date of Checkup</th>
+                      <th>Mtype</th>
+                      <th>Rlink</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for donation in donations %}
+                  {% for medicalhistory in medicalhistory %}
                     <tr>
-                      <td>{{ donation.Don_id }}</td>
-                      <td>{{ donation.DName }}</td>
-                      <td>{{ donation.DPanno }}</td>
-                      <td>{{ donation.Ddate }}</td>
-                      <td>{{ donation.Amt }}</td>
-                      <td><a href="/edit_donation_history/{{ donation.Don_id }}" class="btn btn-success">Edit</a></td>
+                      <td>{{ medicalhistory.mno }}</td>
+                      <td>{{ medicalhistory.cid }}</td>
+                      <td>{{ medicalhistory.datech }}</td>
+                      <td>{{ medicalhistory.mtype }}</td>
+                      <td>{{ medicalhistory.rlink }}</td>
+                      <td><a href="/edit_medical_history/{{ medicalhistory.mno }}" class="btn btn-success">Edit</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>

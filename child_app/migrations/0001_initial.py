@@ -77,6 +77,13 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Medical_History',
+            fields=[
+                ('mno', models.CharField(max_length=5, primary_key=True, serialize=False)),
+                ('datech', models.DateField()),
+                ('mtype', models.BooleanField()),
+                ('rlink', models.CharField(max_length=20)),
+                ('cid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='child_app.room')),
             name='Office_Bearers',
             fields=[
                 ('chair_no', models.CharField(max_length=5, primary_key=True, serialize=False)),
