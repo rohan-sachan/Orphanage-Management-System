@@ -15,6 +15,17 @@ class AdminDB(models.Model):
     updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
 
+class Employee(models.Model):
+    id=models.AutoField(primary_key=True)
+    admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    Emp_id = models.CharField(max_length = 5, unique = True)
+    PhNum = models.CharField(max_length = 10)
+    EANo = models.CharField(max_length = 12)
+    DOJ = models.DateField()
+    RType = models.CharField(max_length = 10)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now_add=True)
+    objects=models.Manager()
 
 class Donation_History(models.Model):
     Don_id = models.CharField(max_length = 5, primary_key=True)
@@ -56,15 +67,8 @@ class Medical_History(models.Model):
 class Office_Bearers(models.Model):
     chair_no = models.CharField(max_length = 5, primary_key=True)
     position = models.CharField(max_length = 20)
+    eid = models.ForeignKey(Employee,on_delete=models.CASCADE)
     objects = models.Manager()
-
-# class Employees(models.Model):
-#     id=models.AutoField(primary_key=True)
-#     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
-#     address=models.TextField()
-#     created_at=models.DateTimeField(auto_now_add=True)
-#     updated_at=models.DateTimeField(auto_now_add=True)
-#     objects=models.Manager()
 
 
 @receiver(post_save,sender=CustomUser)
@@ -72,12 +76,12 @@ def create_user_profile(sender,instance,created,**kwargs):
     if created:
         if instance.user_type==1:
             AdminDB.objects.create(admin=instance)
-        # if instance.user_type==2:
-        #     Staffs.objects.create(admin=instance,address="")
+        if instance.user_type==2:
+            Employee.objects.create(admin=instance,Emp_id="",PhNum="",EANo="",DOJ="2020-01-01",RType="")
 
 @receiver(post_save,sender=CustomUser)
 def save_user_profile(sender,instance,**kwargs):
     if instance.user_type==1:
         instance.admindb.save()
-    # if instance.user_type==2:
-    #     instance.staffs.save()
+    if instance.user_type==2:
+        instance.employee.save()
