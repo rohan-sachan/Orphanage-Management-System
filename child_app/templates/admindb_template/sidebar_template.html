@@ -38,7 +38,7 @@
           </li>
           <li class="nav-item">
             {% url 'add_room' as add_room %}
-            <a href="{{ add_room }}" class="nav-link {% if request.path == add_child %} active {% endif %}">
+            <a href="{{ add_room }}" class="nav-link {% if request.path == add_room %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Add Room
