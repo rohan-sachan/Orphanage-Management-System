@@ -43,12 +43,13 @@ class Child(models.Model):
     GPANo = models.CharField(max_length = 20)
     rid = models.ForeignKey(Room,on_delete=models.CASCADE)
     objects = models.Manager()
+
 class Medical_History(models.Model):
     mno = models.CharField(max_length = 5, primary_key=True)
+    cid = models.ForeignKey(Child,on_delete=models.CASCADE)
     datech = models.DateField()
     mtype = models.BooleanField()
     rlink = models.CharField(max_length = 20)
-    cid = models.ForeignKey(Room,on_delete=models.CASCADE)
     objects = models.Manager()
     
 

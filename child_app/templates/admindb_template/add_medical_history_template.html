@@ -15,16 +15,12 @@ Add Medical_History
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/add_room_save" method="post">
+              <form role="form" action="/add_medical_history_save" method="post">
                   {% csrf_token %}
                 <div class="card-body">
                    <div class="form-group">
                     <label>Medical No</label>
                     <input type="text" class="form-control" placeholder="Medical No" name="mno">
-                  </div>
-                   <div class="form-group">
-                    <label>Child ID</label>
-                    <input type="text" class="form-control" placeholder="ChildID" name="cid">
                   </div>
                    <div class="form-group">
                     <label>Date of Checkup</label>
@@ -37,6 +33,10 @@ Add Medical_History
                   <div class="form-group">
                     <label>Rlink</label>
                     <input type="text" class="form-control" placeholder="Rlink" name="rlink">
+                  </div>
+                  <div class="form-group">
+                    <label>Child ID</label>
+                    <input type="text" class="form-control" placeholder="ChildID" name="cid">
                   </div>
                       <div class="form-group">
                       {% if messages %}
