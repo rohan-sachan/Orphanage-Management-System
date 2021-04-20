@@ -10,6 +10,7 @@ from django.utils.dateparse import parse_date
 from child_app.models import Child
 from child_app.models import Room
 from child_app.models import Donation_History
+from child_app.models import Medical_History
 
 
 def employee_home(request):
@@ -23,9 +24,17 @@ def manage_room_emp(request):
     rooms = Room.objects.raw('SELECT * FROM child_app_room')
     return render(request,"employeedb_template/manage_room_template.html", {"rooms":rooms})
 
-# def manage_donation_history(request):
-#     donations = Donation_History.objects.raw('SELECT * FROM child_app_donation_history')
-#     return render(request,"admindb_template/manage_donation_history_template.html", {"donations":donations})
+def manage_donation_history_emp(request):
+     donations = Donation_History.objects.raw('SELECT * FROM child_app_donation_history')
+     return render(request,"employeedb_template/manage_donation_history_template.html", {"donations":donations})
+    
+def manage_child_emp(request):
+    childrens = Child.objects.raw('SELECT * FROM child_app_child')
+    return render(request,"employeedb_template/manage_child_template.html", {"childrens":childrens})
+
+def manage_medical_history_emp(request):
+    medicalhistory = Medical_History.objects.raw('SELECT * FROM child_app_medical_history')
+    return render(request,"employeedb_template/manage_medical_history_template.html", {"medicalhistory":medicalhistory})
 
 # def edit_child(request,Child_id):
 #     child=Child.objects.raw('SELECT * FROM child_app_child WHERE Child_id = %s',[Child_id])[0]
